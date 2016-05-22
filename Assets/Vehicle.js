@@ -9,7 +9,7 @@ protected var direcDeGuiado : Vector3;
 protected var posObj : Vector3;
 protected var velDeseada : Vector3;
 
-protected var steerings;
+protected var steerings : Component[];
 
 protected var colors = [Color.blue, Color.green, Color.red, Color.yellow, Color.black, Color.white];
 
@@ -20,7 +20,7 @@ function Start () {
 
 function Update () {
 	direcDeGuiado = controlSteering();
-	if(direcDeGuiado == Vector3.zero) Debug.Log("direcDeGuiado es cero");
+	//if(direcDeGuiado == Vector3.zero) Debug.Log("direcDeGuiado es cero");
 	controlVelocidad();
 	controlOrientacion();
 }
@@ -54,7 +54,8 @@ function getBehaviours(){
 function controlSteering() : Vector3{
 	var steering : Vector3 = Vector3.zero;
 	var i : int = 0;
-	var res : boolean = false;
+
+	Debug.Log(this.name+"; tam. steerings: "+steerings.Length);
 	
 	for(var steer : Steering in steerings){
 		Debug.Log("i: "+i);
@@ -64,13 +65,10 @@ function controlSteering() : Vector3{
 			//Debug.Log(steer.steeringName+"; "+colors[i]);
 			//Debug.DrawRay(transform.localPosition, steering, colors[i], 500);
 			i++;
-			res = true;
 		}
 	}
 	
-	if(res) Debug.Log("Ha entrado");
-	else Debug.Log("No ha entrado");
-	steering /= i;
+	if(i > 0) steering /= i;
 	//Debug.DrawRay(transform.localPosition, steering, Color.red, 500);
 	return steering;
 }

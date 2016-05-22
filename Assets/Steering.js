@@ -2,7 +2,7 @@
 
 public class Steering extends MonoBehaviour{
 	public var activateSteering : boolean = true;
-	@Range(0.1,0.9)
+	@Range(1,9)
 	public var steeringWeight : float;
 	public var steeringName = "name";
 	
