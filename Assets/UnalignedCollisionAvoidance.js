@@ -26,9 +26,11 @@ public class UnalignedCollisionAvoidance extends Steering{
 					var velThreat : Vector3 = threat.GetComponent(Vehicle).getVelocity();
 					var threatFuturePos : Vector3 = threat.transform.localPosition + velThreat;
 					var dist = Vector3.Distance(myFuturePos, threatFuturePos);
+					Debug.DrawRay(myFuturePos, threatFuturePos-myFuturePos, Color.green, 1);
 					var threatRadii = Mathf.Max(Mathf.Max(threat.transform.localScale.x, threat.transform.localScale.y), threat.transform.localScale.z);
 					var radiiSum : float = (myRadii + threatRadii) + hitDistance;
 					
+					Debug.Log("name: "+this.name+"; dist: "+dist+" ;radiiSum: "+radiiSum);
 					if(dist < radiiSum && dist < minDistOfCollision){
 						minDistOfCollision = dist;
 						

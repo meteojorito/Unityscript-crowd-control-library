@@ -54,11 +54,8 @@ function getBehaviours(){
 function controlSteering() : Vector3{
 	var steering : Vector3 = Vector3.zero;
 	var i : int = 0;
-
-	Debug.Log(this.name+"; tam. steerings: "+steerings.Length);
 	
 	for(var steer : Steering in steerings){
-		Debug.Log("i: "+i);
 		var steeringVector = steer.steeringVector(velocidad, velMax);
 		if(steeringVector != Vector3.zero){
 			steering += steeringVector * steer.steeringWeight;

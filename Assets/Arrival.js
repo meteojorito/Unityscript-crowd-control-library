@@ -19,7 +19,7 @@ public class Arrival extends Steering{
 			direcDeGuiado = velDeseada - velocidad;
 		}
 		
-		Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.blue, 500);
+		//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.blue, 500);
 		//Debug.Log("arrival magnitude: "+direcDeGuiado.magnitude);
 		
 		return direcDeGuiado;
