@@ -19,7 +19,8 @@ public class Separation extends Steering{
 					var topAngle : float = GetComponent.<Neighborhood>().getAngle();
 					
 					if(vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
-						vecDist = Vector3.Normalize(vecDist)*(1/vecDist.magnitude);
+						var vecDistMagnitude = vecDist.magnitude;
+						vecDist = Vector3.Normalize(vecDist)*(1/vecDistMagnitude);
 						/*if(GetComponent.<UnalignedCollisionAvoidance>() != null && GetComponent.<UnalignedCollisionAvoidance>().getDirecDeGuiado() != Vector3.zero){
 							direcDeGuiado = Vector3.zero;
 							Debug.Log("Cohesion zero");
@@ -29,6 +30,8 @@ public class Separation extends Steering{
 				}
 			}
 		}
+		
+		if(this.name == "vehiculo 0") Debug.Log("separation magnitude: "+direcDeGuiado.magnitude);
 		
 		return direcDeGuiado;
 	}

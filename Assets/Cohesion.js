@@ -14,6 +14,7 @@ public class Cohesion extends Steering{
 			var neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
 			averagePos = Vector3.zero;
 			var num : int = 0;
+			var thereAreNeighbors : boolean = false;
 			
 			for(var neighbor : GameObject in neighbors){
 				var vecDist : Vector3 = transform.localPosition - neighbor.transform.localPosition;
@@ -23,17 +24,19 @@ public class Cohesion extends Steering{
 				if(neighbor.name != this.name && vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
 					averagePos += neighbor.transform.localPosition;
 					num++;
+					thereAreNeighbors = true;
 				}
 			}
 			
-			averagePos /= num;
+			if(thereAreNeighbors){
+				averagePos /= num;
+				
+				vecDist = averagePos - transform.localPosition;
+				direcDeGuiado = Vector3.Normalize(vecDist)*(1/vecDist.magnitude);
+			}
 		}
 
-		/*if(GetComponent.<UnalignedCollisionAvoidance>() != null && GetComponent.<UnalignedCollisionAvoidance>().getDirecDeGuiado() != Vector3.zero){
-			direcDeGuiado = Vector3.zero;
-			Debug.Log("Cohesion zero");
-		}
-		else*/ direcDeGuiado = Vector3.Normalize(averagePos - transform.localPosition);
+		if(this.name == "vehiculo 0") Debug.Log("cohesion magnitude: "+direcDeGuiado.magnitude);
 
 		return direcDeGuiado;
 	}

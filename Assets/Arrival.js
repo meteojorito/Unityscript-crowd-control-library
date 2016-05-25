@@ -20,7 +20,7 @@ public class Arrival extends Steering{
 		}
 		
 		//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.blue, 500);
-		//Debug.Log("arrival magnitude: "+direcDeGuiado.magnitude);
+		if(this.name == "vehiculo 0") Debug.Log("arrival magnitude: "+direcDeGuiado.magnitude);
 		
 		return direcDeGuiado;
 	}

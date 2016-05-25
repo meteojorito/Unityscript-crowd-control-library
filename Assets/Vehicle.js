@@ -59,14 +59,17 @@ function controlSteering() : Vector3{
 		var steeringVector = steer.steeringVector(velocidad, velMax);
 		if(steeringVector != Vector3.zero){
 			steering += steeringVector * steer.steeringWeight;
-			//Debug.Log(steer.steeringName+"; "+colors[i]);
-			//Debug.DrawRay(transform.localPosition, steering, colors[i], 500);
+			if(this.name == "vehiculo 0"){
+				Debug.Log(steer.steeringName+"; "+colors[i]);
+				Debug.DrawRay(transform.localPosition, steering, colors[i], 0.01);
+			}
 			i++;
 		}
 	}
 	
-	if(i > 0) steering /= i;
-	//Debug.DrawRay(transform.localPosition, steering, Color.red, 500);
+	//if(i > 0) steering /= i;
+	
+	if(this.name == "vehiculo 0") Debug.DrawRay(transform.localPosition, steering, Color.grey, 0.01);
 	return steering;
 }
 
