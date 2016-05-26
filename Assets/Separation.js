@@ -21,17 +21,13 @@ public class Separation extends Steering{
 					if(vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
 						var vecDistMagnitude = vecDist.magnitude;
 						vecDist = Vector3.Normalize(vecDist)*(1/vecDistMagnitude);
-						/*if(GetComponent.<UnalignedCollisionAvoidance>() != null && GetComponent.<UnalignedCollisionAvoidance>().getDirecDeGuiado() != Vector3.zero){
-							direcDeGuiado = Vector3.zero;
-							Debug.Log("Cohesion zero");
-						}
-						else*/ direcDeGuiado += vecDist;
+						direcDeGuiado += vecDist;
 					}
 				}
 			}
 		}
 		
-		if(this.name == "vehiculo 0") Debug.Log("separation magnitude: "+direcDeGuiado.magnitude);
+		if(this.name == "pursuer 0") Debug.Log("separation magnitude: "+direcDeGuiado.magnitude);
 		
 		return direcDeGuiado;
 	}

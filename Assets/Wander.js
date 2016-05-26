@@ -40,6 +40,8 @@ public class Wander extends Steering{
 			cont++;
 		}
 		
+		if(this.name == "pursuer 0") Debug.Log("wander magnitude: "+direcDeGuiado.magnitude);
+		
 		return direcDeGuiado;
 	}
 	
