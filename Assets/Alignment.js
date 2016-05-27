@@ -8,10 +8,12 @@ public class Alignment extends Steering{
 	
 	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
+		var averageDir : Vector3 = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
 			var neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
 			var num : int = 0;
+			var thereAreNeighbors : boolean = false;
 			
 			for(var neighbor : GameObject in neighbors){
 				var vecDist : Vector3 = transform.localPosition - neighbor.transform.localPosition;
@@ -19,12 +21,17 @@ public class Alignment extends Steering{
 				var topAngle : float = GetComponent.<Neighborhood>().getAngle();
 				
 				if(neighbor.name != this.name && vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
-					direcDeGuiado += neighbor.transform.forward;
+					averageDir += neighbor.transform.forward;
 					num++;
+					thereAreNeighbors = true;
 				}
 			}
 			
-			direcDeGuiado /= num;
+			if(thereAreNeighbors){
+				averageDir /= num;
+				
+				direcDeGuiado = Vector3.Normalize(averageDir)*(1/averageDir.magnitude);
+			}
 		}
 		
 		return direcDeGuiado;

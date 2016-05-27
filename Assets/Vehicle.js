@@ -61,7 +61,7 @@ function controlSteering() : Vector3{
 			steering += steeringVector * steer.steeringWeight;
 
 			//Debug.Log(steer.steeringName+"; "+colors[i]);
-			Debug.DrawRay(transform.localPosition, steering*50, colors[i], 0.01);
+			//Debug.DrawRay(transform.localPosition, steering*50, colors[i], 0.01);
 			
 			i++;
 		}
@@ -69,7 +69,7 @@ function controlSteering() : Vector3{
 	
 	//if(i > 0) steering /= i;
 	
-	Debug.DrawRay(transform.localPosition, steering*50, Color.grey, 0.01);
+	Debug.DrawRay(transform.localPosition, steering*50, Color.grey, 500);
 	return steering;
 }
 
