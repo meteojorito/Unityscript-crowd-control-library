@@ -2,18 +2,20 @@
 
 public class Wander extends Steering{
 	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3 = Vector3.zero;
+	protected var direcDeGuiado : Vector3;
 	
 	protected var randomPoint : Vector3;
 	protected var valueAngleY : float;
 	protected var valueAngleZ : float;
+	protected var abruptChangeCount : int = 0;
 	
 	protected var distance : float = 0;
-	protected var direcChangingTime : float = 0.0;
 	
 	public var constraint_y : boolean = false;
 	public var logicSphereRadii : float = 3.0;
 	public var logicSphereDistance : float = 5.0;
+	
+	protected var logicSphereDistance2 : float;
 	
 	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
@@ -24,8 +26,16 @@ public class Wander extends Steering{
 				else valueAngleY = Random.Range(0, 360);
 				valueAngleZ = Random.Range(0, 360);
 				
+				if(abruptChangeCount == 0){
+					logicSphereDistance2 = logicSphereDistance;
+					logicSphereDistance = 0.0;
+				}
 				randomPoint = spherePoint(valueAngleY, valueAngleZ);
-				direcChangingTime = Random.Range(1.0, 3.0);
+				if(abruptChangeCount == 0){
+					logicSphereDistance = logicSphereDistance2;
+					abruptChangeCount = Random.Range(3, 10);
+				}
+				else abruptChangeCount -= 1;
 			}
 			
 			distance = Vector3.Distance(transform.localPosition, randomPoint);
@@ -50,6 +60,6 @@ public class Wander extends Steering{
 		var y = logicSphereRadii * Mathf.Sin(radianY) * Mathf.Sin(radianZ) + transform.localPosition.y;
 		var z = logicSphereRadii * Mathf.Cos(radianZ) + transform.localPosition.z;
 		
-		return new Vector3(x, y, z + logicSphereDistance);
+		return transform.forward*logicSphereDistance + Vector3(x, y, z);
 	}
 }

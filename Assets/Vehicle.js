@@ -53,23 +53,21 @@ function getBehaviours(){
 
 function controlSteering() : Vector3{
 	var steering : Vector3 = Vector3.zero;
+	var neighborSteering : Vector3 = Vector3.zero;
+	var neighborhoodWeight : float;
 	var i : int = 0;
 	
 	for(var steer : Steering in steerings){
 		var steeringVector = steer.steeringVector(velocidad, velMax);
-		if(steeringVector != Vector3.zero){
-			steering += steeringVector * steer.steeringWeight;
+		steering += steeringVector * steer.steeringWeight;
 
-			//Debug.Log(steer.steeringName+"; "+colors[i]);
-			//Debug.DrawRay(transform.localPosition, steering*50, colors[i], 0.01);
-			
-			i++;
-		}
+		//Debug.Log(steer.steeringName+"; "+colors[i]);
+		//Debug.DrawRay(transform.localPosition, steering*50, colors[i], 0.01);
 	}
 	
 	//if(i > 0) steering /= i;
 	
-	Debug.DrawRay(transform.localPosition, steering*50, Color.grey, 500);
+	//Debug.DrawRay(transform.localPosition, steering*50, Color.grey, 500);
 	return steering;
 }
 

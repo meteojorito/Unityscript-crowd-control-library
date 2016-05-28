@@ -27,7 +27,7 @@ public class Evasion extends Steering{
 			}
 		}
 		
-		if(this.name == "prey 0") Debug.Log("evasion magnitude: "+direcDeGuiado.magnitude);
+		//if(this.name == "prey 0") Debug.Log("evasion magnitude: "+direcDeGuiado.magnitude);
 			
 		return direcDeGuiado;
 	}

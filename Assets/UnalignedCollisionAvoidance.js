@@ -16,18 +16,23 @@ public class UnalignedCollisionAvoidance extends Steering{
 	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
 		
-		if(activateSteering){
+		if(activateSteering && GetComponent.<SphereCollider>() != null){
 			var threats = new List.<GameObject>(GameObject.FindGameObjectsWithTag(obstacleTag));
 			var myFuturePos : Vector3 = transform.localPosition + velocidad;
-			var myRadii = Mathf.Max(Mathf.Max(transform.localScale.x, transform.localScale.y), transform.localScale.z);
+			var myMaxScale : float = Mathf.Max(Mathf.Max(transform.localScale.x, transform.localScale.y), transform.localScale.z);
+			var myRadii = GetComponent.<SphereCollider>().radius * myMaxScale;
 			
 			for(var threat : GameObject in threats){
-				if(threat.name != this.name){
+				if(threat.name != this.name && threat.GetComponent.<SphereCollider>() != null){
 					var velThreat : Vector3 = threat.GetComponent(Vehicle).getVelocity();
 					var threatFuturePos : Vector3 = threat.transform.localPosition + velThreat;
 					var dist = Vector3.Distance(myFuturePos, threatFuturePos);
-					var threatRadii = Mathf.Max(Mathf.Max(threat.transform.localScale.x, threat.transform.localScale.y), threat.transform.localScale.z);
-					var radiiSum : float = (myRadii + threatRadii) + hitDistance;
+					var threatMaxScale = Mathf.Max(Mathf.Max(threat.transform.localScale.x, threat.transform.localScale.y), threat.transform.localScale.z);
+					var threatRadii = threat.GetComponent.<SphereCollider>().radius * threatMaxScale;
+					
+					//Debug.Log("name: "+name+"; radius: "+myRadii+"; dist: "+dist);
+					
+					var radiiSum : float = myRadii + threatRadii;
 
 					if(dist < radiiSum && dist < minDistOfCollision){
 						minDistOfCollision = dist;

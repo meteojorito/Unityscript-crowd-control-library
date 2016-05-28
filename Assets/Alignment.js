@@ -21,16 +21,17 @@ public class Alignment extends Steering{
 				var topAngle : float = GetComponent.<Neighborhood>().getAngle();
 				
 				if(neighbor.name != this.name && vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
-					averageDir += neighbor.transform.forward;
+					velDeseada += neighbor.transform.forward;
 					num++;
 					thereAreNeighbors = true;
 				}
 			}
 			
 			if(thereAreNeighbors){
-				averageDir /= num;
-				
-				direcDeGuiado = Vector3.Normalize(averageDir)*(1/averageDir.magnitude);
+				velDeseada /= num;
+				direcDeGuiado = velDeseada - velocidad;
+				var direcDeGuiadoMag : float = direcDeGuiado.magnitude;
+				direcDeGuiado = Vector3.Normalize(direcDeGuiado)*(1/direcDeGuiadoMag);
 			}
 		}
 		

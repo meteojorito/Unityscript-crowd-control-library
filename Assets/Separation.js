@@ -27,7 +27,7 @@ public class Separation extends Steering{
 			}
 		}
 		
-		if(this.name == "pursuer 0") Debug.Log("separation magnitude: "+direcDeGuiado.magnitude);
+		//if(this.name == "pursuer 0") Debug.Log("separation magnitude: "+direcDeGuiado.magnitude);
 		
 		return direcDeGuiado;
 	}

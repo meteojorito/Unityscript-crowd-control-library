@@ -1,10 +1,13 @@
 ﻿#pragma strict
 
 public class Neighborhood extends Steering{
+	protected var velDeseada : Vector3;
+	protected var direcDeGuiado : Vector3;
+	
 	public var radii : float = 2;
 	public var angle : float = 165;
 	public var nTag = "neighbor";
-	
+
 	public function getRadii() : float{
 		return radii;
 	}

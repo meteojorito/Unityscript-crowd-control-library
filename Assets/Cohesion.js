@@ -36,7 +36,7 @@ public class Cohesion extends Steering{
 			}
 		}
 
-		if(this.name == "pursuer 0") Debug.Log("cohesion magnitude: "+direcDeGuiado.magnitude);
+		//if(this.name == "pursuer 0") Debug.Log("cohesion magnitude: "+direcDeGuiado.magnitude);
 
 		return direcDeGuiado;
 	}

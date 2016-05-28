@@ -14,7 +14,7 @@ public class Pursuit extends Steering{
 		if(activateSteering){
 			var dist = Vector3.Distance(objetivo.transform.localPosition, transform.localPosition);
 			
-			if(this.name == "pursuer 0") Debug.Log("dist: "+dist+"; pursuitDistance: "+pursuitDistance);
+			//if(this.name == "pursuer 0") Debug.Log("dist: "+dist+"; pursuitDistance: "+pursuitDistance);
 			if(dist < pursuitDistance){
 				var velObj = objetivo.GetComponent.<Vehicle>().getVelocity();
 				var estimPos = objetivo.transform.localPosition + velObj*dist;
@@ -28,7 +28,7 @@ public class Pursuit extends Steering{
 			}
 		}
 		
-		if(this.name == "pursuer 0") Debug.Log("pursuit magnitude: "+direcDeGuiado.magnitude);
+		//if(this.name == "pursuer 0") Debug.Log("pursuit magnitude: "+direcDeGuiado.magnitude);
 		
 		return direcDeGuiado;
 	}
