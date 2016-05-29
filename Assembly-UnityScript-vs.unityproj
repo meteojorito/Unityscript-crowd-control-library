@@ -51,6 +51,7 @@
      <Compile Include="Assets\Cohesion.js" />
      <Compile Include="Assets\Evasion.js" />
      <Compile Include="Assets\Flee.js" />
+     <Compile Include="Assets\LeaderFollowing.js" />
      <Compile Include="Assets\Neighborhood.js" />
      <Compile Include="Assets\ObstacleAvoidance.js" />
      <Compile Include="Assets\OffsetPursuit.js" />

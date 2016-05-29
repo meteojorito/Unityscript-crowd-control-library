@@ -3,9 +3,13 @@
 public class Arrival extends Steering{
 	public var objetivo : GameObject;
 	public var slowingDistance : float;
+	public var offset : float = 0.0;
+	@HideInInspector
+	public var distanceToTarget : float = 0.0;
 	protected var velDeseada : Vector3;
 	protected var direcDeGuiado : Vector3 = Vector3.zero;
 	
+	public var neighborhoodDeactivation : boolean = true;
 	public var neighborhoodDeactivationDistance : float = 1.0;
 	protected var sepWeight : float;
 	protected var cohWeight : float;
@@ -15,16 +19,17 @@ public class Arrival extends Steering{
 		direcDeGuiado = Vector3.zero;
 		
 		if(activateSteering){
-			var vecDist = objetivo.transform.localPosition - transform.localPosition;
-			var dist = vecDist.magnitude;
-			var rampedSpeed = velMax * (dist / slowingDistance);
+			var targetPosition : Vector3 = objetivo.transform.localPosition + objetivo.transform.forward*offset;
+			var vecDist = targetPosition - transform.localPosition;
+			distanceToTarget = vecDist.magnitude;
+			var rampedSpeed = velMax * (distanceToTarget / slowingDistance);
 			var clippedSpeed = Mathf.Min(velMax, rampedSpeed);
 			
-			velDeseada = vecDist * (clippedSpeed / dist);
+			velDeseada = vecDist * (clippedSpeed / distanceToTarget);
 			direcDeGuiado = velDeseada - velocidad;
 			
-			if(GetComponent.<Neighborhood>() != null){
-				neighborhoodControl(dist);
+			if(neighborhoodDeactivation && GetComponent.<Neighborhood>() != null){
+				neighborhoodControl(distanceToTarget);
 			}
 		}
 		

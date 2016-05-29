@@ -69,6 +69,7 @@ function controlSteering() : Vector3{
 	
 	//Debug.DrawRay(transform.localPosition, steering*50, Color.grey, 500);
 	return steering;
+	//return Vector3.zero;
 }
 
 function getVelocity() : Vector3{
