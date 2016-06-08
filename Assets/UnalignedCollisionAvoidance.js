@@ -4,12 +4,11 @@ import System.Collections.Generic;
 
 public class UnalignedCollisionAvoidance extends Steering{
 	protected var velDeseada : Vector3;
-	protected var velMaxOrig : float;
-	protected var mySphereCollider : SphereCollider;
-	protected var sphereColliders : List.<SphereCollider>;
-	protected var minDistOfCollision : float = 99999;
+	protected var threats : List.<GameObject>;
+	protected var minDistanceOfThreat : float;
+	public var maxDistanceDetection : float = 1.0;
 	public var obstacleTag = "obstacle";
-	public var hitDistance : float = 3;
+	public var yConstraint : boolean = false;
 	
 	protected var direcDeGuiado : Vector3;
 	
@@ -17,8 +16,12 @@ public class UnalignedCollisionAvoidance extends Steering{
 		direcDeGuiado = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<SphereCollider>() != null){
-			var threats = new List.<GameObject>(GameObject.FindGameObjectsWithTag(obstacleTag));
+			var vecDist : Vector3 = Vector3.zero;
+			var threatSpeed : float;
+			threats = new List.<GameObject>(GameObject.FindGameObjectsWithTag(obstacleTag));
 			var myFuturePos : Vector3 = transform.localPosition + velocidad;
+			minDistanceOfThreat = maxDistanceDetection;
+			
 			var myMaxScale : float = Mathf.Max(Mathf.Max(transform.localScale.x, transform.localScale.y), transform.localScale.z);
 			var myRadii = GetComponent.<SphereCollider>().radius * myMaxScale;
 			
@@ -27,6 +30,7 @@ public class UnalignedCollisionAvoidance extends Steering{
 					var velThreat : Vector3 = threat.GetComponent(Vehicle).getVelocity();
 					var threatFuturePos : Vector3 = threat.transform.localPosition + velThreat;
 					var dist = Vector3.Distance(myFuturePos, threatFuturePos);
+					
 					var threatMaxScale = Mathf.Max(Mathf.Max(threat.transform.localScale.x, threat.transform.localScale.y), threat.transform.localScale.z);
 					var threatRadii = threat.GetComponent.<SphereCollider>().radius * threatMaxScale;
 					
@@ -34,39 +38,36 @@ public class UnalignedCollisionAvoidance extends Steering{
 					
 					var radiiSum : float = myRadii + threatRadii;
 
-					if(dist < radiiSum && dist < minDistOfCollision){
-						minDistOfCollision = dist;
+					if(dist < radiiSum && dist < minDistanceOfThreat){
+						vecDist = /*Vector3.Normalize(*/threatFuturePos - transform.localPosition/*)*/;
 						
-						if(imFurther(threat)){
-							var vecDist = Vector3.Normalize(threatFuturePos - transform.localPosition);
-							var distance = vecDist.magnitude;
-							var slowingDistance : float = 1.0;
-							var rampedSpeed = velMax * (distance / slowingDistance);
-							var clippedSpeed = Mathf.Min(velMax, rampedSpeed);
-							velDeseada = vecDist * (clippedSpeed / distance);
-						}
-						else
-							velDeseada = Vector3.Normalize(threatFuturePos - transform.localPosition)*velMax*velMax;
-						
-						direcDeGuiado = Vector3.Reflect(-velDeseada, transform.forward);
-						//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.green, 500);
+						threatSpeed = velThreat.magnitude;
+						minDistanceOfThreat = dist;
+						//Debug.DrawRay(transform.localPosition, vecDist, Color.green, 0.01);
 					}
 				}
 			}
+			
+			if(vecDist != Vector3.zero){
+				var mySpeed : float = velocidad.magnitude;
+				if(mySpeed < threatSpeed){
+					var distance = vecDist.magnitude;
+					var slowingDistance : float = dist;
+					var rampedSpeed = velMax * (distance / slowingDistance);
+					var clippedSpeed = Mathf.Min(velMax, rampedSpeed);
+					velDeseada = vecDist * (clippedSpeed / distance);
+				}
+				else
+					velDeseada = vecDist*2;
+				
+				if(yConstraint == true) velDeseada.y = 0.0;
+				
+				var vectDistProjection = Vector3.ProjectOnPlane(velDeseada, transform.forward);
+				direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
+				//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.red, 0.01);
+			}
 		}
 		
-		return direcDeGuiado;
-	}
-	
-	protected function imFurther(threat : GameObject) : boolean{
-		var vecFromMe : Vector3 = transform.forward*10;
-		var vecFromThreat :Vector3 = (transform.localPosition + transform.forward*10) - threat.transform.localPosition;
-		
-		if(vecFromMe.magnitude > vecFromThreat.magnitude) return true;
-		else return false;
-	}
-	
-	public function getDirecDeGuiado(){
 		return direcDeGuiado;
 	}
 }

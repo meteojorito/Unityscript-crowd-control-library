@@ -20,24 +20,24 @@ public class ObstacleAvoidance extends Steering{
 		if(activateSteering && miSphereCollider != null){
 			threats = new List.<GameObject>(GameObject.FindGameObjectsWithTag(obstacleTag));
 			minDistanceOfThreat = maxDistanceDetection;
+			var vectDistProjection : Vector3 = Vector3.zero;
 			var maxScale = Mathf.Max(Mathf.Max(transform.localScale.x, transform.localScale.y), transform.localScale.z);
 			
 			for(var threat : GameObject in threats){
 				if(!isBehind(threat)){
 					var dist : float = Vector3.Distance(transform.localPosition , threat.transform.localPosition);
-					var maxScaleThreat = Mathf.Max(Mathf.Max(threat.transform.localScale.x, threat.transform.localScale.y), threat.transform.localScale.z);
-					var sphereCollider = threat.GetComponent.<SphereCollider>();
 					if(dist < maxDistanceDetection){
-						var vectDist : Vector3 = threat.transform.localPosition - transform.localPosition;
-						var vectDistProjection = Vector3.ProjectOnPlane(vectDist, transform.forward);
+						var maxScaleThreat = Mathf.Max(Mathf.Max(threat.transform.localScale.x, threat.transform.localScale.y), threat.transform.localScale.z);
+						var sphereCollider = threat.GetComponent.<SphereCollider>();
+						
 						var radiiSum : float = miSphereCollider.radius * maxScale + sphereCollider.radius * maxScaleThreat;
 
 						if(dist < radiiSum && dist < minDistanceOfThreat){
-							vectDistOfThreat = vectDist;
-							minDistanceOfThreat = vectDistProjection.magnitude;
+							var vectDist : Vector3 = threat.transform.localPosition - transform.localPosition;
+							//Debug.DrawRay(transform.localPosition, vectDist, Color.green, 0.01);
+							vectDistProjection = Vector3.ProjectOnPlane(vectDist, transform.forward);
+							minDistanceOfThreat = dist;
 							//Debug.Log("Entra en el cilindro");
-							
-							direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
 
 							//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.green, 500);
 							//Debug.DrawRay(transform.localPosition, vectDist, Color.blue, 500);
@@ -48,9 +48,12 @@ public class ObstacleAvoidance extends Steering{
 				}
 				//else Debug.Log("Esta detras");
 			}
+			
+			if(vectDistProjection != Vector3.zero)
+				direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
 		}
 		
-		//Debug.DrawRay(transform.localPosition, Vector3.Normalize(direcDeGuiado), Color.green, 500);
+		//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.red, 0.01);
 		return direcDeGuiado;
 	}
 	

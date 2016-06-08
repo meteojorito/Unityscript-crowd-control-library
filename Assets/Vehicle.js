@@ -44,6 +44,7 @@ function controlVelocidad(){
 	var fuerzaDeGuiado = Vector3.ClampMagnitude(direcDeGuiado, fuerzaMax);
 	var aceleracion = fuerzaDeGuiado / masa;
 	velocidad = Vector3.ClampMagnitude(velocidad + aceleracion, velMax);
+	//if(name == "vehiculo 0") Debug.Log("velocidad: "+velocidad);
 	transform.localPosition = transform.localPosition + velocidad;
 }
 
@@ -53,13 +54,12 @@ function getBehaviours(){
 
 function controlSteering() : Vector3{
 	var steering : Vector3 = Vector3.zero;
-	var neighborSteering : Vector3 = Vector3.zero;
 	var neighborhoodWeight : float;
 	var i : int = 0;
 	
 	for(var steer : Steering in steerings){
 		var steeringVector = steer.steeringVector(velocidad, velMax);
-		steering += steeringVector * steer.steeringWeight;
+		steering += /*Vector3.Normalize(*/steeringVector/*)*/ * steer.steeringWeight;
 
 		//Debug.Log(steer.steeringName+"; "+colors[i]);
 		//Debug.DrawRay(transform.localPosition, steering*50, colors[i], 0.01);
