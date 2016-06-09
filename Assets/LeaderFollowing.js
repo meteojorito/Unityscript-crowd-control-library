@@ -41,7 +41,7 @@ public class LeaderFollowing extends Steering{
 					//variableOffset = offset;
 					
 					var leaderPosition : Vector3 = leader.transform.localPosition + leader.transform.forward*(-variableOffset);
-					Debug.DrawRay(leader.transform.localPosition, leaderPosition - leader.transform.localPosition, Color.green, 0.01);
+					//Debug.DrawRay(leader.transform.localPosition, leaderPosition - leader.transform.localPosition, Color.green, 0.01);
 					var vecDist = leaderPosition - transform.localPosition;
 					distance = vecDist.magnitude;
 					var rampedSpeed = velMax * (distance / slowingDistance);
