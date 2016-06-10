@@ -12,10 +12,12 @@ protected var velDeseada : Vector3;
 protected var steerings : Component[];
 
 protected var colors = [Color.blue, Color.green, Color.red, Color.yellow, Color.black, Color.white];
+protected var indice : int;
 
 function Start () {
 	velocidad = Vector3.zero;
 	getBehaviours();
+	indice = 0;
 }
 
 function Update () {
@@ -23,6 +25,7 @@ function Update () {
 	//if(direcDeGuiado == Vector3.zero) Debug.Log("direcDeGuiado es cero");
 	controlVelocidad();
 	controlOrientacion();
+	indice++;
 }
 
 function controlOrientacion(){
@@ -37,14 +40,14 @@ function controlOrientacion(){
 	newUp = Vector3.Cross(newForward, newSide);
 	//Debug.DrawRay(transform.localPosition, new_up*10, Color.yellow, 500);
 	transform.up = newUp;
-	transform.forward = newForward;
+	if(newForward != Vector3.zero) transform.forward = newForward;
+	//Debug.Log("newForward: "+newForward);
 }
 
 function controlVelocidad(){
 	var fuerzaDeGuiado = Vector3.ClampMagnitude(direcDeGuiado, fuerzaMax);
 	var aceleracion = fuerzaDeGuiado / masa;
 	velocidad = Vector3.ClampMagnitude(velocidad + aceleracion, velMax);
-	//if(name == "vehiculo 0") Debug.Log("velocidad: "+velocidad);
 	transform.localPosition = transform.localPosition + velocidad;
 }
 

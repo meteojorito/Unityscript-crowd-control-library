@@ -7,6 +7,7 @@ public class ObstacleAvoidance extends Steering{
 	protected var threats : List.<GameObject>;
 	public var obstacleTag = "obstacle";
 	public var maxDistanceDetection : float;
+	public var yConstraint : boolean = false;
 	protected var minDistanceOfThreat : float;
 	protected var vectDistOfThreat : Vector3;
 	
@@ -51,6 +52,8 @@ public class ObstacleAvoidance extends Steering{
 			
 			if(vectDistProjection != Vector3.zero)
 				direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
+				
+			if(yConstraint == true) direcDeGuiado.y = 0.0;
 		}
 		
 		//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.red, 0.01);

@@ -22,12 +22,18 @@ public class Arrival extends Steering{
 			var rampedSpeed = velMax * (dist / slowingDistance);
 			var clippedSpeed = Mathf.Min(velMax, rampedSpeed);
 			
-			velDeseada = vecDist * (clippedSpeed / dist);
-			direcDeGuiado = velDeseada - velocidad;
-			
+			if(clippedSpeed <= 0 && dist < 0.0001)
+				direcDeGuiado = Vector3.zero;
+			else{
+				velDeseada = vecDist * (clippedSpeed / dist);
+				direcDeGuiado = velDeseada - velocidad;
+			}
+						
 			if(neighborhoodDeactivation && GetComponent.<Neighborhood>() != null){
 				neighborhoodControl(dist);
 			}
+			
+			//Debug.Log("Y sigo...");
 		}
 		
 		//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.blue, 500);
