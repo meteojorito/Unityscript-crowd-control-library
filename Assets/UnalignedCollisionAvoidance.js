@@ -26,7 +26,10 @@ public class UnalignedCollisionAvoidance extends Steering{
 			var myRadii = GetComponent.<SphereCollider>().radius * myMaxScale;
 			
 			for(var threat : GameObject in threats){
+				if(threat.transform.parent != null)
+					threat = threat.transform.parent.gameObject;
 				if(threat.name != this.name && threat.GetComponent.<SphereCollider>() != null){
+					if(threat.GetComponent.<Vehicle>() == null) Debug.Log("name: "+name+"; no hay vehiculo");
 					var velThreat : Vector3 = threat.GetComponent(Vehicle).getVelocity();
 					var threatFuturePos : Vector3 = threat.transform.localPosition + velThreat;
 					var dist = Vector3.Distance(myFuturePos, threatFuturePos);

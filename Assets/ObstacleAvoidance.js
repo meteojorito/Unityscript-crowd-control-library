@@ -25,6 +25,8 @@ public class ObstacleAvoidance extends Steering{
 			var maxScale = Mathf.Max(Mathf.Max(transform.localScale.x, transform.localScale.y), transform.localScale.z);
 			
 			for(var threat : GameObject in threats){
+				if(threat.transform.parent != null)
+					threat = threat.transform.parent.gameObject;
 				if(!isBehind(threat)){
 					var dist : float = Vector3.Distance(transform.localPosition , threat.transform.localPosition);
 					if(dist < maxDistanceDetection){

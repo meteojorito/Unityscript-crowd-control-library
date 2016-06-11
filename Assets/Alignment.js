@@ -16,14 +16,18 @@ public class Alignment extends Steering{
 			var thereAreNeighbors : boolean = false;
 			
 			for(var neighbor : GameObject in neighbors){
-				var vecDist : Vector3 = transform.localPosition - neighbor.transform.localPosition;
-				var angle : float = Vector3.Angle(transform.forward, vecDist);
-				var topAngle : float = GetComponent.<Neighborhood>().getAngle();
-				
-				if(neighbor.name != this.name && vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
-					velDeseada += neighbor.transform.forward;
-					num++;
-					thereAreNeighbors = true;
+				if(neighbor.transform.parent.gameObject != null)
+					neighbor = neighbor.transform.parent.gameObject;
+				if(neighbor.name != this.name){
+					var vecDist : Vector3 = transform.localPosition - neighbor.transform.localPosition;
+					var angle : float = Vector3.Angle(transform.forward, vecDist);
+					var topAngle : float = GetComponent.<Neighborhood>().getAngle();
+					
+					if(vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
+						velDeseada += neighbor.transform.forward;
+						num++;
+						thereAreNeighbors = true;
+					}
 				}
 			}
 			
