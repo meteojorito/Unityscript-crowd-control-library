@@ -1,9 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\UnalignedCollisionAvoidance.js">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Raw Mocap Data\Animations\_CompleteAnimationList.txt">
     <Files>
-      <File FileName="Assets\UnalignedCollisionAvoidance.js" Line="30" Column="50" />
-      <File FileName="Assets\ObstacleAvoidance.js" Line="28" Column="31" />
+      <File FileName="Assets\Raw Mocap Data\Animations\_CompleteAnimationList.txt" Line="1" Column="1" />
+      <File FileName="Assets\UnalignedCollisionAvoidance.js" Line="1" Column="1" />
+      <File FileName="Assets\ObstacleAvoidance.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

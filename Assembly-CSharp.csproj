@@ -46,15 +46,10 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\TagFrenzy\Scripts\Core\EditorTag.cs" />
-     <Compile Include="Assets\TagFrenzy\Scripts\Core\MultiTagManager.cs" />
-     <Compile Include="Assets\TagFrenzy\Scripts\Core\TagFrenzyList.cs" />
-     <Compile Include="Assets\TagFrenzy\Scripts\Core\TagMatch.cs" />
-     <Compile Include="Assets\TagFrenzy\Scripts\Core\Tags.cs" />
-     <Compile Include="Assets\TagFrenzy\Scripts\Test.cs" />
-     <Compile Include="Assets\TagFrenzy\Scripts\User\GameObjectExtensions.cs" />
-     <Compile Include="Assets\TagFrenzy\Scripts\User\MultiTag.cs" />
-     <None Include="Assets\TagFrenzy\Resources\Tags.xml" />
+     <Compile Include="Assets\MoveMotionPack\SampleScene\Scripts\PlayManager.cs" />
+     <None Include="Assets\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpecTransp.shader" />
+     <None Include="Assets\MoveMotionPack\SampleScene\Shaders\DiffuseReflectiveShader.shader" />
+     <None Include="Assets\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpec.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
