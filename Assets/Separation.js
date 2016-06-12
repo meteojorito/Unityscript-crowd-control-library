@@ -13,7 +13,7 @@ public class Separation extends Steering{
 			var neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
 			
 			for(var neighbor : GameObject in neighbors){
-				if(neighbor.transform.parent.gameObject != null)
+				if(neighbor.transform.parent != null)
 					neighbor = neighbor.transform.parent.gameObject;
 				if(neighbor.name != this.name){
 					var vecDist : Vector3 = transform.localPosition - neighbor.transform.localPosition;

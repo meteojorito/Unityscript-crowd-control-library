@@ -16,7 +16,7 @@ public class Alignment extends Steering{
 			velDeseada = Vector3.zero;
 			
 			for(var neighbor : GameObject in neighbors){
-				if(neighbor.transform.parent.gameObject != null)
+				if(neighbor.transform.parent != null)
 					neighbor = neighbor.transform.parent.gameObject;
 				if(neighbor.name != this.name){
 					var vecDist : Vector3 = transform.localPosition - neighbor.transform.localPosition;
