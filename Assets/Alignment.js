@@ -8,12 +8,12 @@ public class Alignment extends Steering{
 	
 	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
-		var averageDir : Vector3 = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
 			var neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
 			var num : int = 0;
 			var thereAreNeighbors : boolean = false;
+			velDeseada = Vector3.zero;
 			
 			for(var neighbor : GameObject in neighbors){
 				if(neighbor.transform.parent.gameObject != null)
@@ -25,6 +25,7 @@ public class Alignment extends Steering{
 					
 					if(vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
 						velDeseada += neighbor.transform.forward;
+						//velDeseada += neighbor.GetComponent.<Vehicle>().getVelocity();
 						num++;
 						thereAreNeighbors = true;
 					}
@@ -32,11 +33,13 @@ public class Alignment extends Steering{
 			}
 			
 			if(thereAreNeighbors){
-				velDeseada /= num;
+				if(num > 0) velDeseada /= num;
 				direcDeGuiado = velDeseada - velocidad;
 				var direcDeGuiadoMag : float = direcDeGuiado.magnitude;
 				direcDeGuiado = Vector3.Normalize(direcDeGuiado)*(1/direcDeGuiadoMag);
 			}
+			
+			if(GetComponent.<Neighborhood>().getYConstraint()) direcDeGuiado.y = 0.0;
 		}
 		
 		return direcDeGuiado;

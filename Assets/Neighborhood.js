@@ -7,6 +7,7 @@ public class Neighborhood extends Steering{
 	public var radii : float = 2;
 	public var angle : float = 165;
 	public var nTag = "neighbor";
+	public var yConstraint : boolean = false;
 
 	public function getRadii() : float{
 		return radii;
@@ -18,5 +19,9 @@ public class Neighborhood extends Steering{
 	
 	public function getTag(){
 		return nTag;
+	}
+	
+	public function getYConstraint() : boolean{
+		return yConstraint;
 	}
 }

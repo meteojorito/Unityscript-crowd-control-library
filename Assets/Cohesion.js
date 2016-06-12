@@ -36,6 +36,8 @@ public class Cohesion extends Steering{
 				vecDist = averagePos - transform.localPosition;
 				direcDeGuiado = Vector3.Normalize(vecDist)*(1/vecDist.magnitude);
 			}
+			
+			if(GetComponent.<Neighborhood>().getYConstraint()) direcDeGuiado.y = 0.0;
 		}
 
 		//if(this.name == "pursuer 0") Debug.Log("cohesion magnitude: "+direcDeGuiado.magnitude);

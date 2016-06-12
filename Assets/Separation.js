@@ -27,6 +27,8 @@ public class Separation extends Steering{
 					}
 				}
 			}
+			
+			if(GetComponent.<Neighborhood>().getYConstraint()) direcDeGuiado.y = 0.0;
 		}
 		
 		//if(this.name == "pursuer 0") Debug.Log("separation magnitude: "+direcDeGuiado.magnitude);
