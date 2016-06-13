@@ -16,10 +16,10 @@ public class LeaderFollowing extends Steering{
 		
 		leader = GameObject.FindGameObjectWithTag(leaderTag);
 		
-		if(leader.transform.parent != null)
-			leader = leader.transform.parent.gameObject;
-		
 		if(leader != null){
+			if(leader.transform.parent != null)
+				leader = leader.transform.parent.gameObject;
+				
 			offset *= leader.transform.localScale.z;
 		}
 	}
