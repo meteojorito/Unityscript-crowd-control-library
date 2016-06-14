@@ -9,8 +9,18 @@ public class UnalignedCollisionAvoidance extends Steering{
 	public var maxDistanceDetection : float = 1.0;
 	public var obstacleTag = "obstacle";
 	public var yConstraint : boolean = false;
+
+	protected var myRadii : float;
 	
 	protected var direcDeGuiado : Vector3;
+
+	public function Start(){
+		if(activateSteering && GetComponent.<SphereCollider>() != null){
+			threats = new List.<GameObject>(GameObject.FindGameObjectsWithTag(obstacleTag));
+			var myMaxScale :float = Mathf.Max(Mathf.Max(transform.localScale.x, transform.localScale.y), transform.localScale.z);
+			myRadii = GetComponent.<SphereCollider>().radius * myMaxScale;
+		}
+	}
 	
 	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
@@ -18,12 +28,9 @@ public class UnalignedCollisionAvoidance extends Steering{
 		if(activateSteering && GetComponent.<SphereCollider>() != null){
 			var vecDist : Vector3 = Vector3.zero;
 			var threatSpeed : float;
-			threats = new List.<GameObject>(GameObject.FindGameObjectsWithTag(obstacleTag));
+
 			var myFuturePos : Vector3 = transform.localPosition + velocidad;
 			minDistanceOfThreat = maxDistanceDetection;
-			
-			var myMaxScale : float = Mathf.Max(Mathf.Max(transform.localScale.x, transform.localScale.y), transform.localScale.z);
-			var myRadii = GetComponent.<SphereCollider>().radius * myMaxScale;
 			
 			for(var threat : GameObject in threats){
 				if(threat.transform.parent != null)

@@ -5,12 +5,18 @@ import System.Collections.Generic;
 public class Alignment extends Steering{
 	protected var velDeseada : Vector3;
 	protected var direcDeGuiado : Vector3;
+	protected var neighbors : List.<GameObject>;
+
+	public function Start(){
+		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
+			neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
+		}
+	}
 	
 	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
-			var neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
 			var num : int = 0;
 			var thereAreNeighbors : boolean = false;
 			velDeseada = Vector3.zero;

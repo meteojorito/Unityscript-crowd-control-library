@@ -5,13 +5,18 @@ import System.Collections.Generic;
 public class Separation extends Steering{
 	protected var velDeseada : Vector3;
 	protected var direcDeGuiado : Vector3;
+	protected var neighbors : List.<GameObject>;
+
+	public function Start(){
+		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
+			neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
+		}
+	}
 	
 	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
-			var neighbors = new List.<GameObject>(GameObject.FindGameObjectsWithTag(GetComponent.<Neighborhood>().getTag()));
-			
 			for(var neighbor : GameObject in neighbors){
 				if(neighbor.transform.parent != null)
 					neighbor = neighbor.transform.parent.gameObject;
@@ -22,6 +27,7 @@ public class Separation extends Steering{
 					
 					if(vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
 						var vecDistMagnitude = vecDist.magnitude;
+						if(vecDistMagnitude < 0.001) vecDistMagnitude = 0.5;
 						vecDist = Vector3.Normalize(vecDist)*(1/vecDistMagnitude);
 						direcDeGuiado += vecDist;
 					}
