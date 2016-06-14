@@ -24,9 +24,8 @@ public class OffsetPursuit extends Steering{
 				var estimPos = objetivo.transform.localPosition + velObj*dist;
 				var vecEstimDist = estimPos - transform.localPosition;
 				var proj = Vector3.ProjectOnPlane(vecEstimDist, transform.forward);
-				//Debug.DrawRay(transform.localPosition, proj, Color.green, 500);
 				var vecOffset = Vector3.Normalize(proj) * (-offset);
-				Debug.DrawRay(objetivo.transform.localPosition, vecOffset, Color.green, 500);
+				//Debug.DrawRay(objetivo.transform.localPosition, vecOffset, Color.green, 500);
 
 				//estimPos = transform.TransformPoint(estimPos + vecOffset);
 				estimPos += vecOffset;

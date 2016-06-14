@@ -66,4 +66,8 @@ public class Arrival extends Steering{
 				GetComponent.<Alignment>().steeringWeight = aliWeight;
 		}
 	}
+
+	public function setObjective(objective : GameObject){
+		objetivo = objective;
+	}
 }

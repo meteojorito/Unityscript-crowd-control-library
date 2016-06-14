@@ -46,9 +46,18 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\MoveMotionPack\SampleScene\Scripts\PlayManager.cs" />
+     <Compile Include="Assets\Sardine\Scripts\IwasiMove.cs" />
+     <Compile Include="Assets\Sardine\Scripts\IwasiOcean.cs" />
+     <Compile Include="Assets\Sardine\Scripts\IwasiRigid.cs" />
+     <Compile Include="Assets\Sardine\Scripts\SardineBoidScript.cs" />
+     <Compile Include="Assets\Sardine\Scripts\SardineBoidsController.cs" />
+     <Compile Include="Assets\Sardine\Scripts\SardineCameraScript.cs" />
+     <Compile Include="Assets\Sardine\Scripts\SardineCharacter.cs" />
+     <Compile Include="Assets\Sardine\Scripts\SardineUserController.cs" />
      <None Include="Assets\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpecTransp.shader" />
      <None Include="Assets\MoveMotionPack\SampleScene\Shaders\DiffuseReflectiveShader.shader" />
      <None Include="Assets\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpec.shader" />
+     <None Include="Assets\Sardine\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

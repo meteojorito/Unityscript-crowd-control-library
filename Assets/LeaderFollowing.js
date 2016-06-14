@@ -7,7 +7,7 @@ public class LeaderFollowing extends Steering{
 	public var hitDistance : float;
 	protected var variableOffset : float;
 	protected var leader : GameObject;
-	protected var distance : float = 10;
+	protected var distance : float = 0;
 	
 	protected var velDeseada : Vector3;
 	protected var direcDeGuiado : Vector3;
@@ -20,7 +20,7 @@ public class LeaderFollowing extends Steering{
 			if(leader.transform.parent != null)
 				leader = leader.transform.parent.gameObject;
 				
-			offset *= leader.transform.localScale.z;
+			//offset *= leader.transform.localScale.z;
 		}
 	}
 
@@ -30,14 +30,13 @@ public class LeaderFollowing extends Steering{
 		if(activateSteering){
 			
 			if(leader != null){
-				if(imInFront(leader)){
-					var vectDist : Vector3 = leader.transform.localPosition - transform.localPosition;
-					var dist : float = vectDist.magnitude;
-					
-					if(dist < hitDistance){
-						var vectDistProjection = Vector3.ProjectOnPlane(vectDist, transform.forward);
-						direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
-					}
+				var vectDist : Vector3 = leader.transform.localPosition - transform.localPosition;
+				var dist : float = vectDist.magnitude;
+
+				if(imInFront(leader) && dist < hitDistance){
+					vectDist = Vector3.Normalize(vectDist);
+					var vectDistProjection = Vector3.ProjectOnPlane(vectDist, transform.forward);
+					direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
 				}
 				else{
 					variableOffset = offset + (distance/10);
