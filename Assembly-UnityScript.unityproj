@@ -45,28 +45,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Alignment.js" />
-     <Compile Include="Assets\Arrival.js" />
-     <Compile Include="Assets\Cohesion.js" />
-     <Compile Include="Assets\Evasion.js" />
-     <Compile Include="Assets\Flee.js" />
-     <Compile Include="Assets\LeaderFollowing.js" />
-     <Compile Include="Assets\Neighborhood.js" />
-     <Compile Include="Assets\ObstacleAvoidance.js" />
-     <Compile Include="Assets\OffsetPursuit.js" />
-     <Compile Include="Assets\Pursuit.js" />
-     <Compile Include="Assets\Seek.js" />
-     <Compile Include="Assets\Separation.js" />
-     <Compile Include="Assets\Shapes.js" />
-     <Compile Include="Assets\Steering.js" />
-     <Compile Include="Assets\UnalignedCollisionAvoidance.js" />
-     <Compile Include="Assets\Vehicle.js" />
-     <Compile Include="Assets\Wander.js" />
-     <Compile Include="Assets\ejemplo_enum.js" />
-     <None Include="Assets\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpecTransp.shader" />
-     <None Include="Assets\MoveMotionPack\SampleScene\Shaders\DiffuseReflectiveShader.shader" />
-     <None Include="Assets\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpec.shader" />
-     <None Include="Assets\Sardine\ReadMe.txt" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Alignment.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Arrival.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Cohesion.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Evasion.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Flee.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\LeaderFollowing.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Neighborhood.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\ObstacleAvoidance.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\OffsetPursuit.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Pursuit.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Seek.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Separation.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Shapes.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Steering.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\UnalignedCollisionAvoidance.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Vehicle.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\Wander.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\ejemplo_enum.js" />
+     <None Include="Assets\ModelLibraries\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpecTransp.shader" />
+     <None Include="Assets\ModelLibraries\MoveMotionPack\SampleScene\Shaders\DiffuseReflectiveShader.shader" />
+     <None Include="Assets\ModelLibraries\MoveMotionPack\SampleScene\Shaders\ReflectiveDiffuseSpec.shader" />
+     <None Include="Assets\ModelLibraries\Sardine\ReadMe.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

@@ -1,16 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Shapes.js">
-    <Files>
-      <File FileName="Assets\LeaderFollowing.js" Line="23" Column="6" />
-      <File FileName="Assets\Shapes.js" Line="57" Column="23" />
-      <File FileName="Assets\Alignment.js" Line="42" Column="30" />
-      <File FileName="Assets\Vehicle.js" Line="48" Column="72" />
-      <File FileName="Assets\Separation.js" Line="30" Column="59" />
-      <File FileName="Assets\Cohesion.js" Line="22" Column="22" />
-      <File FileName="Assets\Flee.js" Line="9" Column="34" />
-    </Files>
-  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
