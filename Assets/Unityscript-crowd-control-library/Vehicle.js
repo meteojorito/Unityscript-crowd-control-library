@@ -1,11 +1,11 @@
 ﻿#pragma strict
 
-protected var velocidad : Vector3;
+protected var velocity : Vector3;
 protected var approximateUp : Vector3;
-public var masa : float;
-public var fuerzaMax : float;
+public var mass : float;
+public var maxForce : float;
 public var velMax : float;
-protected var direcDeGuiado : Vector3;
+protected var steeringVector : Vector3;
 protected var posObj : Vector3;
 protected var velDeseada : Vector3;
 
@@ -15,40 +15,38 @@ protected var colors = [Color.blue, Color.green, Color.red, Color.yellow, Color.
 protected var indice : int;
 
 function Start () {
-	velocidad = Vector3.zero;
+	velocity = Vector3.zero;
 	getBehaviours();
 	indice = 0;
 }
 
 function Update () {
-	direcDeGuiado = controlSteering();
-	//if(direcDeGuiado == Vector3.zero) Debug.Log("direcDeGuiado es cero");
-	controlVelocidad();
-	controlOrientacion();
+	steeringVector = controlSteering();
+	controlvelocity();
+	orientationControl();
 	indice++;
 }
 
-function controlOrientacion(){
+function orientationControl(){
 	var newForward : Vector3;
 	var newSide : Vector3;
 	var newUp : Vector3;
-	//Debug.DrawRay(transform.localPosition, velocidad*10, Color.blue, 500);
-	newForward = Vector3.Normalize(velocidad);
-	approximateUp = Vector3.Normalize(transform.up);
-	newSide = Vector3.Cross(approximateUp, newForward);
-	//Debug.DrawRay(transform.localPosition, new_side*10, Color.red, 500);
-	newUp = Vector3.Cross(newForward, newSide);
-	//Debug.DrawRay(transform.localPosition, new_up*10, Color.yellow, 500);
-	transform.up = newUp;
-	if(newForward != Vector3.zero) transform.forward = newForward;
-	//Debug.Log("newForward: "+newForward);
+
+	if(velocity != Vector3.zero){
+		newForward = Vector3.Normalize(velocity);
+		approximateUp = Vector3.Normalize(transform.up);
+		newSide = Vector3.Cross(approximateUp, newForward);
+		newUp = Vector3.Cross(newForward, newSide);
+		transform.up = newUp;
+		transform.forward = newForward;
+	}
 }
 
-function controlVelocidad(){
-	var fuerzaDeGuiado = Vector3.ClampMagnitude(direcDeGuiado, fuerzaMax);
-	var aceleracion = fuerzaDeGuiado / masa;
-	velocidad = Vector3.ClampMagnitude(velocidad + aceleracion, velMax);
-	transform.localPosition = transform.localPosition + velocidad;
+function velocityControl(){
+	var steeringForce = Vector3.ClampMagnitude(steeringVector, maxForce);
+	var acceleration = steeringForce / mass;
+	velocity = Vector3.ClampMagnitude(velocity + acceleration, velMax);
+	transform.localPosition = transform.localPosition + velocity;
 }
 
 function getBehaviours(){
@@ -61,7 +59,7 @@ function controlSteering() : Vector3{
 	var i : int = 0;
 	
 	for(var steer : Steering in steerings){
-		var steeringVector = steer.steeringVector(velocidad, velMax);
+		var steeringVector = steer.steeringVector(velocity, velMax);
 		steering += steeringVector * steer.steeringWeight;
 
 		//Debug.Log(steer.steeringName+"; "+colors[i]);
@@ -76,5 +74,5 @@ function controlSteering() : Vector3{
 }
 
 function getVelocity() : Vector3{
-	return velocidad;
+	return velocity;
 }
