@@ -1,42 +1,39 @@
 ﻿#pragma strict
 
 public class Arrival extends Steering{
-	public var objetivo : GameObject;
+	public var target : GameObject;
 	public var slowingDistance : float;
 	public var yConstraint : boolean = false;
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3 = Vector3.zero;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3 = Vector3.zero;
 	
 	public var neighborhoodDeactivation : boolean = true;
 	public var neighborhoodDeactivationDistance : float = 1.0;
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		direcDeGuiado = Vector3.zero;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		steeringVector = Vector3.zero;
 		
 		if(activateSteering){
-			var vecDist = objetivo.transform.localPosition - transform.localPosition;
+			var vecDist = target.transform.localPosition - transform.localPosition;
 			var dist = vecDist.magnitude;
-			var rampedSpeed = velMax * (dist / slowingDistance);
-			var clippedSpeed = Mathf.Min(velMax, rampedSpeed);
+			var rampedSpeed = maxSpeed * (dist / slowingDistance);
+			var clippedSpeed = Mathf.Min(maxSpeed, rampedSpeed);
 			
-			if(clippedSpeed <= 0 && dist < 0.0001)
-				direcDeGuiado = Vector3.zero;
+			if(dist < 0.0001)
+				steeringVector = Vector3.zero;
 			else{
-				velDeseada = vecDist * (clippedSpeed / dist);
-				direcDeGuiado = velDeseada - velocidad;
+				desiredVelocity = vecDist * (clippedSpeed / dist);
+				steeringVector = desiredVelocity - velocity;
 			}
 						
 			if(neighborhoodDeactivation && GetComponent.<Neighborhood>() != null){
 				neighborhoodControl(dist);
 			}
-			
-			//Debug.Log("Y sigo...");
 		}
+
+		if(yConstraint == true) steeringVector.y = 0.0;
 		
-		//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.blue, 500);
-		if(yConstraint == true) direcDeGuiado.y = 0.0;
-		
-		return direcDeGuiado;
+		return steeringVector;
 	}
 	
 	protected function neighborhoodControl(dist : float){

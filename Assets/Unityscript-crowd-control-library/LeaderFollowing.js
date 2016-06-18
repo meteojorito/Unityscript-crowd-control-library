@@ -9,8 +9,8 @@ public class LeaderFollowing extends Steering{
 	protected var leader : GameObject;
 	protected var distance : float = 0;
 	
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3;
 	
 	public function Start(){
 		
@@ -24,8 +24,8 @@ public class LeaderFollowing extends Steering{
 		}
 	}
 
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		direcDeGuiado = Vector3.zero;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		steeringVector = Vector3.zero;
 		
 		if(activateSteering){
 			
@@ -36,26 +36,24 @@ public class LeaderFollowing extends Steering{
 				if(imInFront(leader) && dist < hitDistance){
 					vectDist = Vector3.Normalize(vectDist);
 					var vectDistProjection = Vector3.ProjectOnPlane(vectDist, transform.forward);
-					direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
+					steeringVector = Vector3.Reflect(-vectDistProjection, transform.forward);
 				}
 				else{
 					variableOffset = offset + (distance/10);
-					//variableOffset = offset;
 					
 					var leaderPosition : Vector3 = leader.transform.localPosition + leader.transform.forward*(-variableOffset);
-					//Debug.DrawRay(leader.transform.localPosition, leaderPosition - leader.transform.localPosition, Color.green, 0.01);
 					var vecDist = leaderPosition - transform.localPosition;
 					distance = vecDist.magnitude;
-					var rampedSpeed = velMax * (distance / slowingDistance);
-					var clippedSpeed = Mathf.Min(velMax, rampedSpeed);
+					var rampedSpeed = maxSpeed * (distance / slowingDistance);
+					var clippedSpeed = Mathf.Min(maxSpeed, rampedSpeed);
 					
-					velDeseada = vecDist * (clippedSpeed / distance);
-					direcDeGuiado = velDeseada - velocidad;
+					desiredVelocity = vecDist * (clippedSpeed / distance);
+					steeringVector = desiredVelocity - velocity;
 				}
 			}
 		}
 		
-		return direcDeGuiado;
+		return steeringVector;
 	}
 	
 	protected function imInFront(leader : GameObject) : boolean{

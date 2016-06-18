@@ -77,8 +77,8 @@ function prepareShape(){
 	var index : int = 0;
 	for(var child : Transform in currentShape.transform){
 		var fish = fishList[index];
-		fish.GetComponent.<Arrival>().objetivo = child.gameObject;
-		fish.GetComponent.<Flee>().objetivo = child.gameObject;
+		fish.GetComponent.<Arrival>().target = child.gameObject;
+		fish.GetComponent.<Flee>().target = child.gameObject;
 		if(fish.name == "leader"){
 			fish.GetComponent.<Wander>().activateSteering = false;
 		}

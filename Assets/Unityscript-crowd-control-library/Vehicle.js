@@ -1,35 +1,28 @@
 ﻿#pragma strict
 
 protected var velocity : Vector3;
-protected var approximateUp : Vector3;
 public var mass : float;
 public var maxForce : float;
-public var velMax : float;
+public var maxSpeed : float;
 protected var steeringVector : Vector3;
-protected var posObj : Vector3;
-protected var velDeseada : Vector3;
 
 protected var steerings : Component[];
-
-protected var colors = [Color.blue, Color.green, Color.red, Color.yellow, Color.black, Color.white];
-protected var indice : int;
 
 function Start () {
 	velocity = Vector3.zero;
 	getBehaviours();
-	indice = 0;
 }
 
 function Update () {
 	steeringVector = controlSteering();
-	controlvelocity();
+	velocityControl();
 	orientationControl();
-	indice++;
 }
 
 function orientationControl(){
 	var newForward : Vector3;
 	var newSide : Vector3;
+	var approximateUp : Vector3;
 	var newUp : Vector3;
 
 	if(velocity != Vector3.zero){
@@ -45,7 +38,7 @@ function orientationControl(){
 function velocityControl(){
 	var steeringForce = Vector3.ClampMagnitude(steeringVector, maxForce);
 	var acceleration = steeringForce / mass;
-	velocity = Vector3.ClampMagnitude(velocity + acceleration, velMax);
+	velocity = Vector3.ClampMagnitude(velocity + acceleration, maxSpeed);
 	transform.localPosition = transform.localPosition + velocity;
 }
 
@@ -56,21 +49,13 @@ function getBehaviours(){
 function controlSteering() : Vector3{
 	var steering : Vector3 = Vector3.zero;
 	var neighborhoodWeight : float;
-	var i : int = 0;
 	
 	for(var steer : Steering in steerings){
-		var steeringVector = steer.steeringVector(velocity, velMax);
-		steering += steeringVector * steer.steeringWeight;
-
-		//Debug.Log(steer.steeringName+"; "+colors[i]);
-		//Debug.DrawRay(transform.localPosition, steering*50, colors[i], 0.01);
+		var sv = steer.getSteeringVector(velocity, maxSpeed);
+		steering += sv * steer.steeringWeight;
 	}
-	
-	//if(i > 0) steering /= i;
-	
-	//Debug.DrawRay(transform.localPosition, steering*50, Color.grey, 500);
+
 	return steering;
-	//return Vector3.zero;
 }
 
 function getVelocity() : Vector3{

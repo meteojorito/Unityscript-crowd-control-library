@@ -22,7 +22,7 @@ public class UnalignedCollisionAvoidance extends Steering{
 		}
 	}
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
+	public function getSteeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<SphereCollider>() != null){
@@ -49,11 +49,10 @@ public class UnalignedCollisionAvoidance extends Steering{
 					var radiiSum : float = myRadii + threatRadii;
 
 					if(dist < radiiSum && dist < minDistanceOfThreat){
-						vecDist = /*Vector3.Normalize(*/threatFuturePos - transform.localPosition/*)*/;
+						vecDist = threatFuturePos - transform.localPosition;
 						
 						threatSpeed = velThreat.magnitude;
 						minDistanceOfThreat = dist;
-						//Debug.DrawRay(transform.localPosition, vecDist, Color.green, 0.01);
 					}
 				}
 			}
@@ -74,7 +73,6 @@ public class UnalignedCollisionAvoidance extends Steering{
 				
 				var vectDistProjection = Vector3.ProjectOnPlane(velDeseada, transform.forward);
 				direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
-				//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.red, 0.01);
 			}
 		}
 		

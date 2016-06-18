@@ -11,8 +11,8 @@ public class ObstacleAvoidance extends Steering{
 	protected var minDistanceOfThreat : float;
 	protected var vectDistOfThreat : Vector3;
 	
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3;
 
 	public function Start(){
 		if(activateSteering && GetComponent.<SphereCollider>() != null){
@@ -22,8 +22,8 @@ public class ObstacleAvoidance extends Steering{
 		}
 	}
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		direcDeGuiado = Vector3.zero;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		steeringVector = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<SphereCollider>() != null){
 			minDistanceOfThreat = maxDistanceDetection;
@@ -42,29 +42,20 @@ public class ObstacleAvoidance extends Steering{
 
 						if(dist < radiiSum && dist < minDistanceOfThreat){
 							var vectDist : Vector3 = threat.transform.localPosition - transform.localPosition;
-							//Debug.DrawRay(transform.localPosition, vectDist, Color.green, 0.01);
 							vectDistProjection = Vector3.ProjectOnPlane(vectDist, transform.forward);
 							minDistanceOfThreat = dist;
-							//Debug.Log("Entra en el cilindro");
-
-							//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.green, 500);
-							//Debug.DrawRay(transform.localPosition, vectDist, Color.blue, 500);
 						}
-						//else Debug.Log("No entra en el cilindro");
 					}
-					//else Debug.Log("Esta demasiado lejos");
 				}
-				//else Debug.Log("Esta detras");
 			}
 			
 			if(vectDistProjection != Vector3.zero)
-				direcDeGuiado = Vector3.Reflect(-vectDistProjection, transform.forward);
+				steeringVector = Vector3.Reflect(-vectDistProjection, transform.forward);
 				
-			if(yConstraint == true) direcDeGuiado.y = 0.0;
+			if(yConstraint == true) steeringVector.y = 0.0;
 		}
-		
-		//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.red, 0.01);
-		return direcDeGuiado;
+
+		return steeringVector;
 	}
 	
 	protected function isBehind(possibleThreat : GameObject) : boolean{

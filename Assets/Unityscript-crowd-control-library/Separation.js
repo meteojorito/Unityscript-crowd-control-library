@@ -3,8 +3,8 @@
 import System.Collections.Generic;
 
 public class Separation extends Steering{
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3;
 	protected var neighbors : List.<GameObject>;
 
 	public function Start(){
@@ -13,8 +13,8 @@ public class Separation extends Steering{
 		}
 	}
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		direcDeGuiado = Vector3.zero;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		steeringVector = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
 			for(var neighbor : GameObject in neighbors){
@@ -29,16 +29,14 @@ public class Separation extends Steering{
 						var vecDistMagnitude = vecDist.magnitude;
 						if(vecDistMagnitude < 0.001) vecDistMagnitude = 2;
 						vecDist = Vector3.Normalize(vecDist)*(1/vecDistMagnitude);
-						direcDeGuiado += vecDist;
+						steeringVector += vecDist;
 					}
 				}
 			}
 			
-			if(GetComponent.<Neighborhood>().getYConstraint()) direcDeGuiado.y = 0.0;
+			if(GetComponent.<Neighborhood>().getYConstraint()) steeringVector.y = 0.0;
 		}
 		
-		//if(this.name == "pursuer 0") Debug.Log("separation magnitude: "+direcDeGuiado.magnitude);
-		
-		return direcDeGuiado;
+		return steeringVector;
 	}
 }

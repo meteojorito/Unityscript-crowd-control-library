@@ -4,33 +4,32 @@ public class Evasion extends Steering{
 	public var pursuer : GameObject;
 	public var evasionDistance : float = 3.0;
 	public var yConstraint : boolean = false;
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3 = Vector3.zero;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3 = Vector3.zero;
 
 	public var neighborhoodDeactivation : boolean = true;
 	public var neighborhoodDeactivationDistance : float = 1.0;
 
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
 		if(activateSteering){
 			var dist = Vector3.Distance(pursuer.transform.localPosition, transform.localPosition);
 			
 			if(dist < evasionDistance){
-				var velObj = pursuer.GetComponent.<Vehicle>().getVelocity();
-				var estimPos = pursuer.transform.localPosition + velObj*dist;
+				var pursuerVelocity = pursuer.GetComponent.<Vehicle>().getVelocity();
+				var estimPos = pursuer.transform.localPosition + pursuerVelocity*dist;
 				
-				velDeseada = Vector3.Normalize(estimPos - transform.localPosition)*velMax;
-				direcDeGuiado = velocidad - velDeseada;
+				desiredVelocity = Vector3.Normalize(estimPos - transform.localPosition)*maxSpeed;
+				steeringVector = velocity - desiredVelocity;
 				
 				if(neighborhoodDeactivation && GetComponent.<Neighborhood>() != null){
 					neighborhoodControl(dist);
 				}
 			}
 		}
-		
-		//if(this.name == "prey 0") Debug.Log("evasion magnitude: "+direcDeGuiado.magnitude);
-		if(yConstraint) direcDeGuiado.y = 0.0;
+
+		if(yConstraint) steeringVector.y = 0.0;
 			
-		return direcDeGuiado;
+		return steeringVector;
 	}
 	
 	protected function neighborhoodControl(dist : float){

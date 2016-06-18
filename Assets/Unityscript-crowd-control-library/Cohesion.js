@@ -3,8 +3,8 @@
 import System.Collections.Generic;
 
 public class Cohesion extends Steering{
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3;
 	protected var neighbors : List.<GameObject>;
 
 	public function Start(){
@@ -13,8 +13,8 @@ public class Cohesion extends Steering{
 		}
 	}
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		direcDeGuiado = Vector3.zero;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		steeringVector = Vector3.zero;
 		var averagePos : Vector3 = transform.localPosition;
 		
 		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
@@ -40,14 +40,12 @@ public class Cohesion extends Steering{
 				averagePos /= num;
 				
 				vecDist = averagePos - transform.localPosition;
-				direcDeGuiado = Vector3.Normalize(vecDist)*(1/vecDist.magnitude);
+				steeringVector = Vector3.Normalize(vecDist)*(1/vecDist.magnitude);
 			}
 			
-			if(GetComponent.<Neighborhood>().getYConstraint()) direcDeGuiado.y = 0.0;
+			if(GetComponent.<Neighborhood>().getYConstraint()) steeringVector.y = 0.0;
 		}
 
-		//if(this.name == "pursuer 0") Debug.Log("cohesion magnitude: "+direcDeGuiado.magnitude);
-
-		return direcDeGuiado;
+		return steeringVector;
 	}
 }

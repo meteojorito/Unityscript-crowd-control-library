@@ -59,6 +59,7 @@
      <Compile Include="Assets\Unityscript-crowd-control-library\Separation.js" />
      <Compile Include="Assets\Unityscript-crowd-control-library\Shapes.js" />
      <Compile Include="Assets\Unityscript-crowd-control-library\Steering.js" />
+     <Compile Include="Assets\Unityscript-crowd-control-library\SteeringAttributes.js" />
      <Compile Include="Assets\Unityscript-crowd-control-library\UnalignedCollisionAvoidance.js" />
      <Compile Include="Assets\Unityscript-crowd-control-library\Vehicle.js" />
      <Compile Include="Assets\Unityscript-crowd-control-library\Wander.js" />

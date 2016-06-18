@@ -1,71 +1,52 @@
 ﻿#pragma strict
 
 public class OffsetPursuit extends Steering{
-	public var objetivo : GameObject;
+	public var target : GameObject;
 	public var offset : float;
 	public var pursuitDistance : float = 3.0;
 	public var yConstraint : boolean = false;
 	
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3 = Vector3.zero;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3 = Vector3.zero;
 	
 	public var neighborhoodDeactivation : boolean = true;
 	public var neighborhoodDeactivationDistance : float = 1.0;
-	protected var sepWeight : float;
-	protected var cohWeight : float;
-	protected var aliWeight : float;
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
 		if(activateSteering){
-			var dist = Vector3.Distance(objetivo.transform.localPosition, transform.localPosition);
+			var dist = Vector3.Distance(target.transform.localPosition, transform.localPosition);
 			
 			if(dist < pursuitDistance){
-				var velObj = objetivo.GetComponent(Vehicle).getVelocity();
-				var estimPos = objetivo.transform.localPosition + velObj*dist;
+				var targetVelocity = target.GetComponent(Vehicle).getVelocity();
+				var estimPos = target.transform.localPosition + targetVelocity*dist;
 				var vecEstimDist = estimPos - transform.localPosition;
 				var proj = Vector3.ProjectOnPlane(vecEstimDist, transform.forward);
 				var vecOffset = Vector3.Normalize(proj) * (-offset);
-				//Debug.DrawRay(objetivo.transform.localPosition, vecOffset, Color.green, 500);
 
-				//estimPos = transform.TransformPoint(estimPos + vecOffset);
 				estimPos += vecOffset;
-				//var aux : Vector3 = estimPos - objetivo.transform.localPosition;
-				//Debug.DrawRay(objetivo.transform.localPosition, aux, Color.green, 500);
-				velDeseada = Vector3.Normalize(estimPos - transform.localPosition)*velMax;
-				direcDeGuiado = velDeseada - velocidad;
+				desiredVelocity = Vector3.Normalize(estimPos - transform.localPosition)*maxSpeed;
+				steeringVector = desiredVelocity - velocity;
 				
 				if(neighborhoodDeactivation && GetComponent.<Neighborhood>() != null){
 					neighborhoodControl(dist);
 				}
 			}
 		}
-		if(yConstraint) direcDeGuiado.y = 0.0;
+		if(yConstraint) steeringVector.y = 0.0;
 		
-		return direcDeGuiado;
+		return steeringVector;
 	}
 	
 	protected function neighborhoodControl(dist : float){
 		if(dist < neighborhoodDeactivationDistance){
-			if(GetComponent.<Separation>() != null){
-				sepWeight = GetComponent.<Separation>().steeringWeight;
-				GetComponent.<Separation>().steeringWeight = 0.0;
-			}
-			if(GetComponent.<Cohesion>() != null){
-				cohWeight = GetComponent.<Cohesion>().steeringWeight;
-				GetComponent.<Cohesion>().steeringWeight = 0.0;
-			}
-			if(GetComponent.<Alignment>() != null){
-				aliWeight = GetComponent.<Alignment>().steeringWeight;
-				GetComponent.<Alignment>().steeringWeight = 0.0;
-			}
+			if(GetComponent.<Separation>() != null) GetComponent.<Separation>().activateSteering = false;
+			if(GetComponent.<Cohesion>() != null) GetComponent.<Cohesion>().activateSteering = false;
+			if(GetComponent.<Alignment>() != null) GetComponent.<Alignment>().activateSteering = false;
 		}
 		else{
-			if(GetComponent.<Separation>() != null && GetComponent.<Separation>().steeringWeight == 0.0)
-				GetComponent.<Separation>().steeringWeight = sepWeight;
-			if(GetComponent.<Cohesion>() != null && GetComponent.<Cohesion>().steeringWeight == 0.0)
-				GetComponent.<Cohesion>().steeringWeight = cohWeight;
-			if(GetComponent.<Alignment>() != null && GetComponent.<Alignment>().steeringWeight == 0.0)
-				GetComponent.<Alignment>().steeringWeight = aliWeight;
+			if(GetComponent.<Separation>() != null) GetComponent.<Separation>().activateSteering = true;
+			if(GetComponent.<Cohesion>() != null) GetComponent.<Cohesion>().activateSteering = true;
+			if(GetComponent.<Alignment>() != null) GetComponent.<Alignment>().activateSteering = true;
 		}
 	}
 }

@@ -3,8 +3,8 @@
 import System.Collections.Generic;
 
 public class Alignment extends Steering{
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3;
 	protected var neighbors : List.<GameObject>;
 
 	public function Start(){
@@ -13,13 +13,13 @@ public class Alignment extends Steering{
 		}
 	}
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		direcDeGuiado = Vector3.zero;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		steeringVector = Vector3.zero;
 		
 		if(activateSteering && GetComponent.<Neighborhood>() != null && GetComponent.<Neighborhood>().activateSteering){
 			var num : int = 0;
 			var thereAreNeighbors : boolean = false;
-			velDeseada = Vector3.zero;
+			desiredVelocity = Vector3.zero;
 			
 			for(var neighbor : GameObject in neighbors){
 				if(neighbor.transform.parent != null)
@@ -30,7 +30,7 @@ public class Alignment extends Steering{
 					var topAngle : float = GetComponent.<Neighborhood>().getAngle();
 					
 					if(vecDist.magnitude < GetComponent.<Neighborhood>().getRadii() && angle > -topAngle && angle < topAngle){
-						velDeseada += neighbor.transform.forward;
+						desiredVelocity += neighbor.transform.forward;
 						num++;
 						thereAreNeighbors = true;
 					}
@@ -38,16 +38,16 @@ public class Alignment extends Steering{
 			}
 			
 			if(thereAreNeighbors){
-				if(num > 0) velDeseada /= num;
-				direcDeGuiado = velDeseada - velocidad;
-				var direcDeGuiadoMag : float = direcDeGuiado.magnitude;
-				if(direcDeGuiadoMag < 0.001) direcDeGuiadoMag = 2;
-				direcDeGuiado = Vector3.Normalize(direcDeGuiado)*(1/direcDeGuiadoMag);
+				if(num > 0) desiredVelocity /= num;
+				steeringVector = desiredVelocity - velocity;
+				var steeringVectorMag : float = steeringVector.magnitude;
+				if(steeringVectorMag < 0.001) steeringVectorMag = 2;
+				steeringVector = Vector3.Normalize(steeringVector)*(1/steeringVectorMag);
 			}
 			
-			if(GetComponent.<Neighborhood>().getYConstraint()) direcDeGuiado.y = 0.0;
+			if(GetComponent.<Neighborhood>().getYConstraint()) steeringVector.y = 0.0;
 		}
 		
-		return direcDeGuiado;
+		return steeringVector;
 	}
 }

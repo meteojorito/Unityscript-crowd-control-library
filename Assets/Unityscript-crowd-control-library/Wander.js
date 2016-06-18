@@ -17,7 +17,7 @@ public class Wander extends Steering{
 	
 	protected var logicSphereDistance2 : float;
 	
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
+	public function getSteeringVector(velocidad : Vector3, velMax : float) : Vector3{
 		direcDeGuiado = Vector3.zero;
 		
 		if(activateSteering){

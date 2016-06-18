@@ -1,37 +1,35 @@
 ﻿#pragma strict
 
 public class Pursuit extends Steering{
-	public var objetivo : GameObject;
+	public var target : GameObject;
 	public var pursuitDistance : float = 3.0;
 	public var yConstraint : boolean = false;
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3 = Vector3.zero;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3 = Vector3.zero;
 
 	public var neighborhoodDeactivation : boolean = true;
 	public var neighborhoodDeactivationDistance : float = 1.0;
 
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
 		if(activateSteering){
-			var dist = Vector3.Distance(objetivo.transform.localPosition, transform.localPosition);
-			
-			//if(this.name == "pursuer 0") Debug.Log("dist: "+dist+"; pursuitDistance: "+pursuitDistance);
+			var dist = Vector3.Distance(target.transform.localPosition, transform.localPosition);
+
 			if(dist < pursuitDistance){
-				var velObj = objetivo.GetComponent.<Vehicle>().getVelocity();
-				var estimPos = objetivo.transform.localPosition + velObj*dist;
+				var targetVelocity = target.GetComponent.<Vehicle>().getVelocity();
+				var estimPos = target.transform.localPosition + targetVelocity*dist;
 				
-				velDeseada = Vector3.Normalize(estimPos - transform.localPosition)*velMax;
-				direcDeGuiado = velDeseada - velocidad;
+				desiredVelocity = Vector3.Normalize(estimPos - transform.localPosition)*maxSpeed;
+				steeringVector = desiredVelocity - velocity;
 				
 				if(neighborhoodDeactivation && GetComponent.<Neighborhood>() != null){
 					neighborhoodControl(dist);
 				}
 			}
 		}
+
+		if(yConstraint) steeringVector.y = 0.0;
 		
-		//if(this.name == "pursuer 0") Debug.Log("pursuit magnitude: "+direcDeGuiado.magnitude);
-		if(yConstraint) direcDeGuiado.y = 0.0;
-		
-		return direcDeGuiado;
+		return steeringVector;
 	}
 	
 	protected function neighborhoodControl(dist : float){

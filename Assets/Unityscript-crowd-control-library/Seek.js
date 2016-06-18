@@ -1,14 +1,16 @@
 ﻿#pragma strict
 
 public class Seek extends Steering{
-	public var objetivo : GameObject;
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3;
+	public var target : GameObject;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3;
 
-	public override function steeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		velDeseada = Vector3.Normalize(objetivo.transform.localPosition - transform.localPosition)*velMax;
-		direcDeGuiado = velDeseada - velocidad;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		if(activateSteering){
+			desiredVelocity = Vector3.Normalize(target.transform.localPosition - transform.localPosition)*maxSpeed;
+			steeringVector = desiredVelocity - velocity;
+		}
 		
-		return direcDeGuiado;
+		return steeringVector;
 	}
 }
