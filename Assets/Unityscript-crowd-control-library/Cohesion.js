@@ -40,7 +40,9 @@ public class Cohesion extends Steering{
 				averagePos /= num;
 				
 				vecDist = averagePos - transform.localPosition;
-				steeringVector = Vector3.Normalize(vecDist)*(1/vecDist.magnitude);
+				var vecDistMagnitude = vecDist.magnitude;
+				if(vecDistMagnitude < 0.001) vecDistMagnitude = 2;
+				steeringVector = Vector3.Normalize(vecDist)*(1/vecDistMagnitude);
 			}
 			
 			if(GetComponent.<Neighborhood>().getYConstraint()) steeringVector.y = 0.0;

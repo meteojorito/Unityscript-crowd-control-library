@@ -69,7 +69,7 @@ function Update () {
 function prepareShape(){
 	//Debug.Log("rutina 1: "+Time.time);
 
-	yield WaitForSeconds(3);
+	yield WaitForSeconds(5);
 
 	currentShape = shapes[shapeIndex];
 	currentShape = Instantiate(currentShape, Vector3(0, 0, 0), Quaternion.identity);
@@ -109,7 +109,7 @@ function deleteShape(){
 		yield WaitForSeconds(0.01);
 	}
 
-	//yield WaitForSeconds(2);
+	yield WaitForSeconds(1);
 
 	for(var i in fishPosDic){
 		var fish = i.Key;

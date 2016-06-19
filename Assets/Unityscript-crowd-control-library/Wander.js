@@ -41,13 +41,7 @@ public class Wander extends Steering{
 			distance = Vector3.Distance(transform.localPosition, randomPoint);
 			velDeseada = Vector3.Normalize(randomPoint - transform.localPosition)*velMax;
 			direcDeGuiado = velDeseada - velocidad;
-			
-			//Debug.DrawRay(transform.localPosition, velocidad, Color.green, 500);
-			//Debug.DrawRay(transform.localPosition, velDeseada, Color.red, 500);
-			//Debug.DrawRay(transform.localPosition, direcDeGuiado, Color.blue, 500);
 		}
-		
-		//if(this.name == "pursuer 0") Debug.Log("wander magnitude: "+direcDeGuiado.magnitude);
 		
 		return direcDeGuiado;
 	}

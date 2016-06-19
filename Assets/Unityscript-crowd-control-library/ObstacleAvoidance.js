@@ -37,13 +37,13 @@ public class ObstacleAvoidance extends Steering{
 					if(dist < maxDistanceDetection){
 						var threatMaxScale = Mathf.Max(Mathf.Max(threat.transform.localScale.x, threat.transform.localScale.y), threat.transform.localScale.z);
 						var threatRadii : float = threat.GetComponent.<SphereCollider>().radius * threatMaxScale;
-						
 						var radiiSum : float = myRadii + threatRadii;
+						var vectDist : Vector3 = threat.transform.localPosition - transform.localPosition;
+						var auxProj : Vector3 = Vector3.ProjectOnPlane(vectDist, transform.forward);
 
-						if(dist < radiiSum && dist < minDistanceOfThreat){
-							var vectDist : Vector3 = threat.transform.localPosition - transform.localPosition;
-							vectDistProjection = Vector3.ProjectOnPlane(vectDist, transform.forward);
-							minDistanceOfThreat = dist;
+						if(auxProj.magnitude < radiiSum && auxProj.magnitude < minDistanceOfThreat){
+							vectDistProjection = auxProj;
+							minDistanceOfThreat = auxProj.magnitude;
 						}
 					}
 				}

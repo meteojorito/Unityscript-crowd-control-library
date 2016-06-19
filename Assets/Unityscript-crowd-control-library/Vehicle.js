@@ -14,7 +14,7 @@ function Start () {
 }
 
 function Update () {
-	steeringVector = controlSteering();
+	steeringVector = steeringControl();
 	velocityControl();
 	orientationControl();
 }
@@ -46,9 +46,8 @@ function getBehaviours(){
 	steerings = GetComponents(Steering);
 }
 
-function controlSteering() : Vector3{
+function steeringControl() : Vector3{
 	var steering : Vector3 = Vector3.zero;
-	var neighborhoodWeight : float;
 	
 	for(var steer : Steering in steerings){
 		var sv = steer.getSteeringVector(velocity, maxSpeed);
