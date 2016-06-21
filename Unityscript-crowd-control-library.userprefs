@@ -1,12 +1,13 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Unityscript-crowd-control-library\Shapes.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Unityscript-crowd-control-library\Separation.js">
     <Files>
       <File FileName="Assets\Unityscript-crowd-control-library\Steering.js" Line="1" Column="1" />
-      <File FileName="Assets\Unityscript-crowd-control-library\Vehicle.js" Line="28" Column="2" />
+      <File FileName="Assets\Unityscript-crowd-control-library\Vehicle.js" Line="1" Column="1" />
       <File FileName="Assets\Unityscript-crowd-control-library\Pursuit.js" Line="1" Column="1" />
-      <File FileName="Assets\Unityscript-crowd-control-library\Shapes.js" Line="112" Column="24" />
-      <File FileName="Assets\Unityscript-crowd-control-library\LeaderFollowing.js" Line="37" Column="45" />
+      <File FileName="Assets\Unityscript-crowd-control-library\Shapes.js" Line="1" Column="1" />
+      <File FileName="Assets\Unityscript-crowd-control-library\LeaderFollowing.js" Line="1" Column="1" />
+      <File FileName="Assets\Unityscript-crowd-control-library\Separation.js" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
