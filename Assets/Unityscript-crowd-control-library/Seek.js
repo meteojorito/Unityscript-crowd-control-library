@@ -10,7 +10,7 @@ public class Seek extends Steering{
 			desiredVelocity = Vector3.Normalize(target.transform.localPosition - transform.localPosition)*maxSpeed;
 			steeringVector = desiredVelocity - velocity;
 		}
-		
+
 		return steeringVector;
 	}
 }

@@ -11,6 +11,7 @@ public class Flee extends Steering{
 			desiredVelocity = Vector3.Normalize(target.transform.localPosition - transform.localPosition)*maxSpeed;
 			steeringVector = velocity - desiredVelocity;
 		}
+
 		return steeringVector;
 	}
 }

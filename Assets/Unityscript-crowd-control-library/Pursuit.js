@@ -28,7 +28,7 @@ public class Pursuit extends Steering{
 		}
 
 		if(yConstraint) steeringVector.y = 0.0;
-		
+
 		return steeringVector;
 	}
 	
