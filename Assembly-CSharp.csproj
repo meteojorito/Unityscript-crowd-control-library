@@ -45,7 +45,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ModelLibraries\MoveMotionPack\SampleScene\Scripts\PlayManager.cs" />
      <Compile Include="Assets\ModelLibraries\Sardine\Scripts\IwasiMove.cs" />
      <Compile Include="Assets\ModelLibraries\Sardine\Scripts\IwasiOcean.cs" />
      <Compile Include="Assets\ModelLibraries\Sardine\Scripts\IwasiRigid.cs" />
