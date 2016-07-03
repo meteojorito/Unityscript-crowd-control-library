@@ -36,7 +36,7 @@ public class Separation extends Steering{
 			
 			if(GetComponent.<Neighborhood>().getYConstraint()) steeringVector.y = 0.0;
 		}
-		
+
 		return steeringVector;
 	}
 }

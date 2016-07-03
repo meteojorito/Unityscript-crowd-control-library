@@ -1,8 +1,8 @@
 ﻿#pragma strict
 
 public class Wander extends Steering{
-	protected var velDeseada : Vector3;
-	protected var direcDeGuiado : Vector3;
+	protected var desiredVelocity : Vector3;
+	protected var steeringVector : Vector3;
 	
 	protected var randomPoint : Vector3;
 	protected var valueAngleY : float;
@@ -17,8 +17,8 @@ public class Wander extends Steering{
 	
 	protected var logicSphereDistance2 : float;
 	
-	public function getSteeringVector(velocidad : Vector3, velMax : float) : Vector3{
-		direcDeGuiado = Vector3.zero;
+	public function getSteeringVector(velocity : Vector3, maxSpeed : float) : Vector3{
+		steeringVector = Vector3.zero;
 		
 		if(activateSteering){
 			if(distance <= 1){
@@ -39,11 +39,11 @@ public class Wander extends Steering{
 			}
 			
 			distance = Vector3.Distance(transform.localPosition, randomPoint);
-			velDeseada = Vector3.Normalize(randomPoint - transform.localPosition)*velMax;
-			direcDeGuiado = velDeseada - velocidad;
+			desiredVelocity = Vector3.Normalize(randomPoint - transform.localPosition)*maxSpeed;
+			steeringVector = desiredVelocity - velocity;
 		}
-		
-		return direcDeGuiado;
+
+		return steeringVector;
 	}
 	
 	private function spherePoint(angleY : float, angleZ : float) : Vector3{

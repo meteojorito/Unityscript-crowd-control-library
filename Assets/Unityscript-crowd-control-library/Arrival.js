@@ -32,7 +32,7 @@ public class Arrival extends Steering{
 		}
 
 		if(yConstraint == true) steeringVector.y = 0.0;
-		
+
 		return steeringVector;
 	}
 	
