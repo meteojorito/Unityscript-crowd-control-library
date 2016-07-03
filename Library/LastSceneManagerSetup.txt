@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/CrosswalkScene/Crosswalk.unity
+- path: Assets/FishScene/FishFormations.unity
   isLoaded: 1
   isActive: 1
