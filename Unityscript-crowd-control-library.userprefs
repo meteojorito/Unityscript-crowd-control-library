@@ -1,7 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Unityscript-crowd-control-library\Vehicle.js">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Unityscript-crowd-control-library\Shapes.js">
     <Files>
+      <File FileName="Assets\Unityscript-crowd-control-library\Shapes.js" Line="13" Column="46" />
       <File FileName="Assets\Unityscript-crowd-control-library\Vehicle.js" Line="56" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>

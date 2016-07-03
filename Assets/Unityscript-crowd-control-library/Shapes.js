@@ -11,7 +11,6 @@ protected var numShapes : int;
 protected var numFishPos : int;
 protected var inExecution1 : boolean = false;
 protected var inExecution2 : boolean = false;
-protected var deleteShapeHasFinished : boolean = true;
 protected var numArrived : int;
 
 protected var haveArrived : List.<boolean>;
